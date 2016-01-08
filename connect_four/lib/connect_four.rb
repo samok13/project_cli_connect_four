@@ -2,7 +2,6 @@ require 'computer'
 require 'board'
 require 'disk'
 
-require "highline"
 
 class ConnectFour
 

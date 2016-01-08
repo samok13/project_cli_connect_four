@@ -70,7 +70,7 @@ describe Board do
     end
   end
 
-  describe 'valid_move?' do
+  describe '#valid_move?' do
     it 'returns false if column is full' do
       6.times { a.place_disk(d, 0) }
       expect(a.valid_move?(1)).to eq(false)
@@ -79,5 +79,31 @@ describe Board do
     it 'returns true if column has space' do
       expect(a.valid_move?(1)).to eq(true)
     end
+  end
+
+  describe '#dup' do
+    it 'makes a deep copy of board object' do
+    a.place_disk(d, 2)
+    board1 = a.board 
+    board2 = a.dup
+    expect(board1.object_id).to_not eq(board2.object_id)
+    end 
+  end
+
+  describe '#winning_move' do
+    it 'returns winning move' do
+      a.place_disk(Disk.make_player_2_disk,0)
+      a.place_disk(Disk.make_player_1_disk,1)
+      a.place_disk(Disk.make_player_2_disk,1)
+      a.place_disk(Disk.make_player_1_disk,2)
+      a.place_disk(Disk.make_player_1_disk,2)
+      a.place_disk(Disk.make_player_2_disk,2)
+      a.place_disk(Disk.make_player_1_disk,3)
+      a.place_disk(Disk.make_player_1_disk,3)
+      a.place_disk(Disk.make_player_1_disk,3)
+      a.render
+      b = a.winning_move
+      expect(b).to eq(4)
+    end  
   end
 end
